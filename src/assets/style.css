@@ -12,3 +12,10 @@
     }
   }
 }
+.correct {
+  @apply bg-blue-500 text-white;
+}
+
+.incorrect {
+  @apply bg-red-100 opacity-70;
+}

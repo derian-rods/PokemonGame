@@ -1,16 +1,17 @@
 import { computed, onMounted, ref } from 'vue';
 import { GameStatus, type Pokemon, type PokemonListResponse } from '../interface';
 import { pokemonApi } from '../api/pokemonApi';
+import confetti from 'canvas-confetti';
 
 export const usePokemonGame = () => {
   const gameStatus = ref<GameStatus>(GameStatus.Playing);
   const pokemons = ref<Pokemon[]>([]);
-  const isLoding = computed(() => pokemons.value.length === 0);
-  const PokemonOptions = ref<Pokemon[]>([]);
+  const isLoading = computed(() => pokemons.value.length === 0);
+  const pokemonOptions = ref<Pokemon[]>([]);
 
-  const radomPokemon = computed<Pokemon>(() => {
-    const index = Math.floor(Math.random() * PokemonOptions.value.length);
-    return PokemonOptions.value[index] ?? { id: 0, name: '' };
+  const randomPokemon = computed<Pokemon>(() => {
+    const index = Math.floor(Math.random() * pokemonOptions.value.length);
+    return pokemonOptions.value[index] ?? { id: 0, name: '' };
   });
 
   const getPokemons = async (): Promise<Pokemon[]> => {
@@ -29,24 +30,40 @@ export const usePokemonGame = () => {
     return pokemonsArray.sort(() => Math.random() - 0.5);
   };
 
-  const getNextOptions = (howMany: number = 4) => {
+  const getNextRound = (howMany: number = 4) => {
     gameStatus.value = GameStatus.Playing;
-    PokemonOptions.value = pokemons.value.slice(0, howMany);
+    pokemonOptions.value = pokemons.value.slice(0, howMany);
     pokemons.value = pokemons.value.slice(howMany);
+  };
+
+  const checkAnswer = (id: number) => {
+    const hasWon = randomPokemon.value.id === id;
+    if (hasWon) {
+      confetti({
+        particleCount: 400,
+        spread: 200,
+        origin: { y: 0.6 },
+      });
+      gameStatus.value = GameStatus.Won;
+      return;
+    }
+
+    gameStatus.value = GameStatus.Lost;
   };
 
   onMounted(async () => {
     pokemons.value = await getPokemons();
-    getNextOptions();
+    getNextRound();
   });
 
   return {
     gameStatus,
-    isLoding,
-    radomPokemon,
-    PokemonOptions,
+    isLoading,
+    randomPokemon,
+    pokemonOptions,
 
     //Methods
-    getNextOptions,
+    checkAnswer,
+    getNextRound,
   };
 };
