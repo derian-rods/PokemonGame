@@ -31,5 +31,4 @@
   import { usePokemonGame } from '@/modules/pokemon/composables/usePokemonGame';
   import { GameStatus } from '../interface';
   const {gameStatus, isLoading, randomPokemon, pokemonOptions:OptionList, checkAnswer, getNextRound} = usePokemonGame();
-  console.log(randomPokemon.value)
 </script>
