@@ -8,6 +8,7 @@ export const usePokemonGame = () => {
   const pokemons = ref<Pokemon[]>([]);
   const isLoading = computed(() => pokemons.value.length === 0);
   const pokemonOptions = ref<Pokemon[]>([]);
+  const totalWins = ref<number>(0);
 
   const randomPokemon = computed<Pokemon>(() => {
     const index = Math.floor(Math.random() * pokemonOptions.value.length);
@@ -39,6 +40,7 @@ export const usePokemonGame = () => {
   const checkAnswer = (id: number) => {
     const hasWon = randomPokemon.value.id === id;
     if (hasWon) {
+      totalWins.value++;
       confetti({
         particleCount: 400,
         spread: 200,
@@ -61,6 +63,7 @@ export const usePokemonGame = () => {
     isLoading,
     randomPokemon,
     pokemonOptions,
+    totalWins,
 
     //Methods
     checkAnswer,

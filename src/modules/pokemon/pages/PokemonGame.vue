@@ -5,6 +5,7 @@
     </section>
     <section v-else class="flex flex-col justify-center items-center w-screen h-screen bg-gray-50 animate-fadeIn">
         <h1 class="text-2xl font-bold mb-4">¿Quién es este Pokémon?</h1>
+        <span class=" absolute top-6 right-6 font-extrabold text-6xl text-yellow-600">{{ totalWins }}</span>
         <button
         v-if="gameStatus !== GameStatus.Playing"
         @click="getNextRound(4)"
@@ -30,5 +31,5 @@
   import pokemonOptions from '@/modules/pokemon/components/PokemonOptions.vue';
   import { usePokemonGame } from '@/modules/pokemon/composables/usePokemonGame';
   import { GameStatus } from '../interface';
-  const {gameStatus, isLoading, randomPokemon, pokemonOptions:OptionList, checkAnswer, getNextRound} = usePokemonGame();
+  const {gameStatus, isLoading, randomPokemon, totalWins, pokemonOptions:OptionList, checkAnswer, getNextRound} = usePokemonGame();
 </script>
