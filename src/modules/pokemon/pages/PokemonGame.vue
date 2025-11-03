@@ -5,11 +5,11 @@
     </section>
     <section v-else class="flex flex-col justify-center items-center w-screen h-screen bg-gray-50 animate-fadeIn">
         <h1 class="text-2xl font-bold mb-4">¿Quién es este Pokémon?</h1>
-        <span class=" absolute top-6 right-6 font-extrabold text-6xl text-yellow-600">{{ totalWins }}</span>
+        <span class=" absolute top-6 right-6 font-extrabold text-4xl">Wins:  <strong class=" text-yellow-600">{{ totalWins }}</strong> </span>
         <button
         v-if="gameStatus !== GameStatus.Playing"
         @click="getNextRound(4)"
-        class="bg-blue-500 rounded  capitalize p-2 text-white mb-4 cursor-pointer transition-all duration-300 ease-in-out animate-fadeIn hover:bg-blue-200 ">
+        class="bg-blue-500 capitalize rounded  capitalize p-2 text-white mb-4 cursor-pointer transition-all duration-300 ease-in-out animate-fadeIn hover:bg-blue-200 ">
           ¿Jugar de nuevo?
         </button>
 
