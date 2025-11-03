@@ -9,7 +9,7 @@
         <button
         v-if="gameStatus !== GameStatus.Playing"
         @click="getNextRound(4)"
-        class="bg-blue-500 capitalize rounded  capitalize p-2 text-white mb-4 cursor-pointer transition-all duration-300 ease-in-out animate-fadeIn hover:bg-blue-200 ">
+        class="bg-blue-500 rounded  capitalize p-2 text-white mb-4 cursor-pointer transition-all duration-300 ease-in-out animate-fadeIn hover:bg-blue-200 ">
           ¿Jugar de nuevo?
         </button>
 
